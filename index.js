@@ -1,4 +1,5 @@
 var nlp = require('compromise');
+var fetch = require('node-fetch');
 
 var regexPunctuationRemover = /[.,\/#!$%\^&\*;:{}=\-_`~()]/g;
 var namesJsonUrl = 'https://s3-eu-west-1.amazonaws.com/bechdel-test-names/names.json'
@@ -150,18 +151,20 @@ function getArticleComponentsFromCapiResponse(json) {
   }
 }
 
-function getArticleScoreFromUrl(url) {
+exports.getArticleScoreFromUrl = function (url) {
+  console.log("here");
   fetch(namesJsonUrl).then(function(response){
       return response.json()
     }).then(function(names){
         fetch(getCAPIUrl(url)).then(function(capiResponse){
           return capiResponse.json();
         }).then(function(capiJson){
-          runForArticlePage(names, capiJson)
+          var components = getArticleComponentsFromCapiResponse(capiJson);
+          var breakdown = getArticleComponentsBreakdown(components, names);
+          var score = getArticleScores(breakdown);
+          var toReturn = {"breakdown": breakdown, "score": score};
+          console.log(toReturn);
+          return toReturn;
         });
     });
 }
-
-export {
-  getArticleScoreFromUrl
-};

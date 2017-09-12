@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Guardian Bechdel Test Group. <jonathan.rankin@guardian.co.uk>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "compromise": "^10.7.2",
+    "node-fetch": "^1.7.3"
+  }
 }
