@@ -82,7 +82,7 @@ function selectDistinct(a) {
    return out;
 }
 
-function getCAPIUrl(url) {
+function getCAPIUrlFromUrl(url) {
   var urlPrefix  = 'https://content.guardianapis.com';
   var urlSuffix =   '?api-key=cbd423b9-1684-4d52-a9a1-33ea9fecf1bf&show-fields=all';
   if(url.includes('theguardian.')){
@@ -96,6 +96,12 @@ function getCAPIUrl(url) {
     return urlPrefix;
   }
   return urlPrefix;
+}
+
+function getCAPIUrlFromPath(path) {
+  var urlPrefix  = 'https://content.guardianapis.com/';
+  var urlSuffix =   '?api-key=cbd423b9-1684-4d52-a9a1-33ea9fecf1bf&show-fields=all';
+  return urlPrefix + path + urlSuffix;
 }
 
 function getLength(value) {
@@ -151,20 +157,25 @@ function getArticleComponentsFromCapiResponse(json) {
   }
 }
 
-exports.getArticleScoreFromUrl = function (url) {
-  console.log("here");
-  fetch(namesJsonUrl).then(function(response){
+
+function getArticleScoreFromPath(path) {
+  return fetch(namesJsonUrl).then(function(response){
       return response.json()
     }).then(function(names){
-        fetch(getCAPIUrl(url)).then(function(capiResponse){
+        return fetch(getCAPIUrlFromPath(path)).then(function(capiResponse){
           return capiResponse.json();
         }).then(function(capiJson){
           var components = getArticleComponentsFromCapiResponse(capiJson);
           var breakdown = getArticleComponentsBreakdown(components, names);
           var score = getArticleScores(breakdown);
-          var toReturn = {"breakdown": breakdown, "score": score};
-          console.log(toReturn);
-          return toReturn;
+          var result = {"breakdown": breakdown, "score": score};        
+          return result;
         });
     });
 }
+
+
+module.exports = {getArticleScoreFromPath}
+
+
+
