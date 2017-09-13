@@ -101,7 +101,6 @@ function getCAPIUrlFromUrl(url) {
 function getCAPIUrlFromPath(path) {
   var urlPrefix  = 'https://content.guardianapis.com/';
   var urlSuffix =   '?api-key=cbd423b9-1684-4d52-a9a1-33ea9fecf1bf&show-fields=all';
-  console.log(urlPrefix + path + urlSuffix);
   return urlPrefix + path + urlSuffix;
 }
 
@@ -160,21 +159,17 @@ function getArticleComponentsFromCapiResponse(json) {
 
 
 function getArticleScoreFromPath(path) {
-  fetch(namesJsonUrl).then(function(response){
+  return fetch(namesJsonUrl).then(function(response){
       return response.json()
     }).then(function(names){
-        fetch(getCAPIUrlFromPath(path)).then(function(capiResponse){
+        return fetch(getCAPIUrlFromPath(path)).then(function(capiResponse){
           return capiResponse.json();
         }).then(function(capiJson){
-          console.log(capiJson);
           var components = getArticleComponentsFromCapiResponse(capiJson);
-          console.log(1);
           var breakdown = getArticleComponentsBreakdown(components, names);
-          console.log(2);
           var score = getArticleScores(breakdown);
-          console.log(breakdown);
-          console.log(score);
-          return {"breakdown": breakdown, "score": score};        
+          var result = {"breakdown": breakdown, "score": score};        
+          return result;
         });
     });
 }
