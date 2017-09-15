@@ -100,7 +100,7 @@ function getCAPIUrlFromUrl(url) {
 
 function getCAPIUrlFromPath(path) {
   var urlPrefix  = 'https://content.guardianapis.com/';
-  var urlSuffix =   '?api-key=cbd423b9-1684-4d52-a9a1-33ea9fecf1bf&show-fields=all';
+  var urlSuffix =   '?api-key=cbd423b9-1684-4d52-a9a1-33ea9fecf1bf&show-fields=byline,bodyText,headline';
   return urlPrefix + path + urlSuffix;
 }
 
