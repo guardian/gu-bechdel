@@ -1,6 +1,6 @@
 {
   "name": "gu-bechdel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This module scores Guardian articles based on the mertics of their gender equality",
   "main": "index.js",
   "scripts": {
