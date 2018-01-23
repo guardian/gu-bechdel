@@ -84,7 +84,7 @@ function selectDistinct(a) {
 
 function getCAPIUrlFromUrl(url, apiKey) {
   var urlPrefix  = 'https://content.guardianapis.com';
-  var urlSuffix =  '?api-key=' + apiKey + 'show-fields=byline,bodyText,headline';
+  var urlSuffix =  '?api-key=' + apiKey + '&show-fields=byline,bodyText,headline';
   if(url.includes('theguardian.')){
     var matches = url.match(/:\/\/(?:www\.)?(.[^/]+)(.*)/);
     if(matches[2]){
